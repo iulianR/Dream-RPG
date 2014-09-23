@@ -7,7 +7,7 @@ import com.ttou.dreamrpg.DRGame;
 public class DesktopLauncher {
 	public static void main(String[] arg) {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
-		config.title = "Zombie Bird";
+		config.title = "Dream RPG";
 		config.width = 800;
 		config.height = 600;
 		new LwjglApplication(new DRGame(), config);

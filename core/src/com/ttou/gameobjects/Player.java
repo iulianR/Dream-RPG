@@ -2,8 +2,18 @@ package com.ttou.gameobjects;
 
 public class Player {
 
+	public enum State {
+		IDLE, WALKING, RUNNING
+	}
+
+	public enum Facing {
+		LEFT, RIGHT, UP, DOWN
+	}
+
 	private float positionX;
 	private float positionY;
+	State state = State.IDLE;
+	float stateTime = 0;
 	final int SPEED = 50;
 
 	boolean leftMove;
@@ -11,7 +21,9 @@ public class Player {
 	boolean upMove;
 	boolean downMove;
 
-	static final int size = 32;
+	Facing facing = Facing.DOWN;
+
+	public static final int SIZE = 32;
 
 	public Player(int x, int y) {
 		this.positionX = x;
@@ -19,6 +31,7 @@ public class Player {
 	}
 
 	public void update(float delta) {
+		stateTime += delta;
 		updateMotion(delta);
 	}
 
@@ -30,10 +43,10 @@ public class Player {
 			positionX += SPEED * delta;
 		}
 		if (upMove) {
-			positionY -= SPEED * delta;
+			positionY += SPEED * delta;
 		}
 		if (downMove) {
-			positionY += SPEED * delta;
+			positionY -= SPEED * delta;
 		}
 	}
 
@@ -43,6 +56,34 @@ public class Player {
 
 	public float getY() {
 		return positionY;
+	}
+
+	public Facing getFacing() {
+		return facing;
+	}
+
+	public float getStateTime() {
+		return stateTime;
+	}
+
+	public State getState() {
+		return state;
+	}
+
+	public boolean isLeftMove() {
+		return leftMove;
+	}
+
+	public boolean isUpMove() {
+		return upMove;
+	}
+
+	public boolean isDownMove() {
+		return downMove;
+	}
+
+	public boolean isRightMove() {
+		return rightMove;
 	}
 
 	public void setLeftMove(boolean t) {
@@ -67,5 +108,13 @@ public class Player {
 		if (upMove && t)
 			upMove = false;
 		downMove = t;
+	}
+
+	public void setState(State newState) {
+		this.state = newState;
+	}
+
+	public void setFacing(Facing newFacing) {
+		this.facing = newFacing;
 	}
 }

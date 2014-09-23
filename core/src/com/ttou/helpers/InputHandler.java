@@ -3,6 +3,8 @@ package com.ttou.helpers;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputProcessor;
 import com.ttou.gameobjects.Player;
+import com.ttou.gameobjects.Player.Facing;
+import com.ttou.gameobjects.Player.State;
 import com.ttou.gameworld.GameWorld;
 
 public class InputHandler implements InputProcessor {
@@ -18,15 +20,21 @@ public class InputHandler implements InputProcessor {
 	public boolean keyDown(int keycode) {
 		switch (keycode) {
 		case Keys.LEFT:
+			myPlayer.setFacing(Facing.LEFT);;
+			myPlayer.setState(State.WALKING);
 			myPlayer.setLeftMove(true);
 			break;
 		case Keys.RIGHT:
+			myPlayer.setFacing(Facing.RIGHT);
+			myPlayer.setState(State.WALKING);
 			myPlayer.setRightMove(true);
 			break;
 		case Keys.UP:
+			myPlayer.setState(State.WALKING);
 			myPlayer.setUpMove(true);
 			break;
 		case Keys.DOWN:
+			myPlayer.setState(State.WALKING);
 			myPlayer.setDownMove(true);
 			break;
 		}
@@ -35,17 +43,31 @@ public class InputHandler implements InputProcessor {
 
 	@Override
 	public boolean keyUp(int keycode) {
+		// checking for facing for smooth control when a button is pressed
+		// while there is another one pressed
 		switch (keycode) {
 		case Keys.LEFT:
+			if (myPlayer.getFacing().equals(Facing.LEFT)) {
+				myPlayer.setState(State.IDLE);
+			}
 			myPlayer.setLeftMove(false);
 			break;
 		case Keys.RIGHT:
+			if (myPlayer.getFacing().equals(Facing.RIGHT)) {
+				myPlayer.setState(State.IDLE);
+			}
 			myPlayer.setRightMove(false);
 			break;
 		case Keys.UP:
+			if (myPlayer.getFacing().equals(Facing.UP)) {
+				myPlayer.setState(State.IDLE);
+			}
 			myPlayer.setUpMove(false);
 			break;
 		case Keys.DOWN:
+			if (myPlayer.getFacing().equals(Facing.DOWN)) {
+				myPlayer.setState(State.IDLE);
+			}
 			myPlayer.setDownMove(false);
 			break;
 		}
