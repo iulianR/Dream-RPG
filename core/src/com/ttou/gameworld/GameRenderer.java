@@ -13,8 +13,8 @@ import com.ttou.gameobjects.Player.State;
 
 public class GameRenderer {
 
-	private static final float CAMERA_WIDTH = 800f;
-	private static final float CAMERA_HEIGHT = 600f;
+	private static final float CAMERA_WIDTH = 400f;
+	private static final float CAMERA_HEIGHT = 300f;
 
 	private GameWorld myWorld;
 	private OrthographicCamera cam;
@@ -26,10 +26,14 @@ public class GameRenderer {
 
 	private Animation walkLeftAnimation;
 	private Animation walkRightAnimation;
+	private Animation walkUpAnimation;
+	private Animation walkDownAnimation;
 
 	// Game Assets
 	private TextureRegion playerIdleLeft;
 	private TextureRegion playerIdleRight;
+	private TextureRegion playerIdleUp;
+	private TextureRegion playerIdleDown;
 	private TextureRegion playerFrame;
 
 	public GameRenderer(GameWorld world) {
@@ -53,32 +57,74 @@ public class GameRenderer {
 	public void initAssets() {
 		TextureAtlas atlas = new TextureAtlas(
 				Gdx.files.internal("data/player.txt"));
-		playerIdleLeft = atlas.findRegion("player-01");
-		playerIdleRight = new TextureRegion(playerIdleLeft);
-		playerIdleRight.flip(true, false);
-		TextureRegion[] walkLeftFrames = new TextureRegion[3];
-		for (int i = 0; i < 3; i++) {
-			walkLeftFrames[i] = atlas.findRegion("player-0" + (i + 1));
-		}
-		walkLeftAnimation = new Animation(0.2f, walkLeftFrames);
+		playerIdleRight = atlas.findRegion("player_side_01");
+		playerIdleLeft = new TextureRegion(playerIdleRight);
+		playerIdleLeft.flip(true, false);
+		playerIdleUp = atlas.findRegion("player_up_01");
+		playerIdleDown = atlas.findRegion("player_down_01");
 
-		TextureRegion[] walkRightFrames = new TextureRegion[3];
-		for (int i = 0; i < 3; i++) {
-			walkRightFrames[i] = new TextureRegion(walkLeftFrames[i]);
-			walkRightFrames[i].flip(true, false);
+		// Right animation
+		TextureRegion[] walkRightFrames = new TextureRegion[11];
+		for (int i = 0; i < 11; i++) {
+			if (i < 9)
+				walkRightFrames[i] = atlas
+						.findRegion("player_side_0" + (i + 1));
+			else
+				walkRightFrames[i] = atlas.findRegion("player_side_" + (i + 1));
 		}
-		walkRightAnimation = new Animation(0.2f, walkRightFrames);
+		walkRightAnimation = new Animation(0.066f, walkRightFrames);
+
+		// Left animation
+		TextureRegion[] walkLeftFrames = new TextureRegion[11];
+		for (int i = 0; i < 11; i++) {
+			walkLeftFrames[i] = new TextureRegion(walkRightFrames[i]);
+			walkLeftFrames[i].flip(true, false);
+		}
+		walkLeftAnimation = new Animation(0.066f, walkLeftFrames);
+
+		// Up animation
+		TextureRegion[] walkUpFrames = new TextureRegion[11];
+		for (int i = 0; i < 11; i++) {
+			if (i < 9)
+				walkUpFrames[i] = atlas.findRegion("player_up_0" + (i + 1));
+			else
+				walkUpFrames[i] = atlas.findRegion("player_up_" + (i + 1));
+		}
+		walkUpAnimation = new Animation(0.066f, walkUpFrames);
+
+		// Down animation
+		TextureRegion[] walkDownFrames = new TextureRegion[11];
+		for (int i = 0; i < 11; i++) {
+			if (i < 9)
+				walkDownFrames[i] = atlas.findRegion("player_down_0" + (i + 1));
+			else
+				walkDownFrames[i] = atlas.findRegion("player_down_" + (i + 1));
+		}
+		walkDownAnimation = new Animation(0.066f, walkDownFrames);
 	}
 
 	private void drawPlayer() {
-		// batch.draw(playerSprite, player.getX(), player.getY(), 32, 32);
-		playerFrame = player.getFacing().equals(Facing.LEFT) ?
-				playerIdleLeft : 
-				playerIdleRight;
-		if (player.getState().equals(State.WALKING)) {
-			playerFrame = player.getFacing().equals(Facing.LEFT) ?
-					walkLeftAnimation.getKeyFrame(player.getStateTime(), true) :
-					walkRightAnimation.getKeyFrame(player.getStateTime(), true);
+		switch (player.getFacing()) {
+		case LEFT:
+			playerFrame = playerIdleLeft;
+			if (player.getState().equals(State.WALKING))
+				playerFrame = walkLeftAnimation.getKeyFrame(player.getStateTime(), true);
+			break;
+		case RIGHT:
+			playerFrame = playerIdleRight;
+			if (player.getState().equals(State.WALKING))
+				playerFrame = walkRightAnimation.getKeyFrame(player.getStateTime(), true);
+			break;
+		case UP:
+			playerFrame = playerIdleUp;
+			if (player.getState().equals(State.WALKING))
+				playerFrame = walkUpAnimation.getKeyFrame(player.getStateTime(), true);
+			break;
+		case DOWN:
+			playerFrame = playerIdleDown;
+			if (player.getState().equals(State.WALKING))
+				playerFrame = walkDownAnimation.getKeyFrame(player.getStateTime(), true);
+			break;
 		}
 		batch.draw(playerFrame, player.getX(), player.getY(), Player.SIZE,
 				Player.SIZE);

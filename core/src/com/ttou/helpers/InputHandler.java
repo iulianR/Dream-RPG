@@ -18,60 +18,62 @@ public class InputHandler implements InputProcessor {
 
 	@Override
 	public boolean keyDown(int keycode) {
-		switch (keycode) {
-		case Keys.LEFT:
-			myPlayer.setFacing(Facing.LEFT);;
-			myPlayer.setState(State.WALKING);
-			myPlayer.setLeftMove(true);
-			break;
-		case Keys.RIGHT:
-			myPlayer.setFacing(Facing.RIGHT);
-			myPlayer.setState(State.WALKING);
-			myPlayer.setRightMove(true);
-			break;
-		case Keys.UP:
-			myPlayer.setState(State.WALKING);
-			myPlayer.setUpMove(true);
-			break;
-		case Keys.DOWN:
-			myPlayer.setState(State.WALKING);
-			myPlayer.setDownMove(true);
-			break;
-		}
-		return true;
+//		switch (keycode) {
+//		case Keys.LEFT:
+//			myPlayer.setFacing(Facing.LEFT);;
+//			myPlayer.setState(State.WALKING);
+//			myPlayer.setLeftMove(true);
+//			break;
+//		case Keys.RIGHT:
+//			myPlayer.setFacing(Facing.RIGHT);
+//			myPlayer.setState(State.WALKING);
+//			myPlayer.setRightMove(true);
+//			break;
+//		case Keys.UP:
+//			myPlayer.setFacing(Facing.UP);
+//			myPlayer.setState(State.WALKING);
+//			myPlayer.setUpMove(true);
+//			break;
+//		case Keys.DOWN:
+//			myPlayer.setFacing(Facing.DOWN);
+//			myPlayer.setState(State.WALKING);
+//			myPlayer.setDownMove(true);
+//			break;
+//		}
+		return false;
 	}
 
 	@Override
 	public boolean keyUp(int keycode) {
 		// checking for facing for smooth control when a button is pressed
 		// while there is another one pressed
-		switch (keycode) {
-		case Keys.LEFT:
-			if (myPlayer.getFacing().equals(Facing.LEFT)) {
-				myPlayer.setState(State.IDLE);
-			}
-			myPlayer.setLeftMove(false);
-			break;
-		case Keys.RIGHT:
-			if (myPlayer.getFacing().equals(Facing.RIGHT)) {
-				myPlayer.setState(State.IDLE);
-			}
-			myPlayer.setRightMove(false);
-			break;
-		case Keys.UP:
-			if (myPlayer.getFacing().equals(Facing.UP)) {
-				myPlayer.setState(State.IDLE);
-			}
-			myPlayer.setUpMove(false);
-			break;
-		case Keys.DOWN:
-			if (myPlayer.getFacing().equals(Facing.DOWN)) {
-				myPlayer.setState(State.IDLE);
-			}
-			myPlayer.setDownMove(false);
-			break;
-		}
-		return true;
+//		switch (keycode) {
+//		case Keys.LEFT:
+//			if (myPlayer.getFacing().equals(Facing.LEFT)) {
+//				myPlayer.setState(State.IDLE);
+//			}
+//			myPlayer.setLeftMove(false);
+//			break;
+//		case Keys.RIGHT:
+//			if (myPlayer.getFacing().equals(Facing.RIGHT)) {
+//				myPlayer.setState(State.IDLE);
+//			}
+//			myPlayer.setRightMove(false);
+//			break;
+//		case Keys.UP:
+//			if (myPlayer.getFacing().equals(Facing.UP)) {
+//				myPlayer.setState(State.IDLE);
+//			}
+//			myPlayer.setUpMove(false);
+//			break;
+//		case Keys.DOWN:
+//			if (myPlayer.getFacing().equals(Facing.DOWN)) {
+//				myPlayer.setState(State.IDLE);
+//			}
+//			myPlayer.setDownMove(false);
+//			break;
+//		}
+		return false;
 	}
 
 	@Override
