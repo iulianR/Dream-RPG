@@ -1,10 +1,7 @@
 package com.ttou.helpers;
 
-import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputProcessor;
 import com.ttou.gameobjects.Player;
-import com.ttou.gameobjects.Player.Facing;
-import com.ttou.gameobjects.Player.State;
 import com.ttou.gameworld.GameWorld;
 
 public class InputHandler implements InputProcessor {

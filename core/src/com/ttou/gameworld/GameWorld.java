@@ -10,8 +10,6 @@ public class GameWorld {
 
 	private Player player;
 
-	private GameRenderer renderer;
-
 	public GameWorld() {
 		// New player at X, Y coordinates
 		player = new Player(30, 30);
@@ -44,14 +42,9 @@ public class GameWorld {
 		player.setDownMove(false);
 		player.setLeftMove(false);
 		player.setRightMove(false);
-
 	}
 
 	public Player getPlayer() {
 		return player;
-	}
-
-	public void setRenderer(GameRenderer renderer) {
-		this.renderer = renderer;
 	}
 }

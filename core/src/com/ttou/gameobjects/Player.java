@@ -1,5 +1,7 @@
 package com.ttou.gameobjects;
 
+import com.badlogic.gdx.math.Vector2;
+
 public class Player {
 
 	public enum State {
@@ -10,9 +12,9 @@ public class Player {
 		LEFT, RIGHT, UP, DOWN
 	}
 
-	private float positionX;
-	private float positionY;
-	State state = State.IDLE;
+	Vector2 position;
+	State state;
+	Facing facing;
 	float stateTime = 0;
 	final int SPEED = 50;
 
@@ -21,13 +23,12 @@ public class Player {
 	boolean upMove;
 	boolean downMove;
 
-	Facing facing = Facing.DOWN;
-
 	public static final int SIZE = 32;
 
 	public Player(int x, int y) {
-		this.positionX = x;
-		this.positionY = y;
+		this.position = new Vector2(x, y);
+		this.state = State.IDLE;
+		this.facing = Facing.DOWN;
 	}
 
 	public void update(float delta) {
@@ -37,37 +38,33 @@ public class Player {
 
 	public void updateMotion(float delta) {
 		if (leftMove) {
-			positionX -= SPEED * delta;
+			position.x -= SPEED * delta;
 		}
 		if (rightMove) {
-			positionX += SPEED * delta;
+			position.x += SPEED * delta;
 		}
 		if (upMove) {
-			positionY += SPEED * delta;
+			position.y += SPEED * delta;
 		}
 		if (downMove) {
-			positionY -= SPEED * delta;
+			position.y -= SPEED * delta;
 		}
 	}
 
-	public float getX() {
-		return positionX;
-	}
-
-	public float getY() {
-		return positionY;
+	public Vector2 getPosition() {
+		return position;
 	}
 
 	public Facing getFacing() {
 		return facing;
 	}
 
-	public float getStateTime() {
-		return stateTime;
-	}
-
 	public State getState() {
 		return state;
+	}
+
+	public float getStateTime() {
+		return stateTime;
 	}
 
 	public boolean isLeftMove() {
@@ -84,6 +81,14 @@ public class Player {
 
 	public boolean isRightMove() {
 		return rightMove;
+	}
+
+	public void setFacing(Facing newFacing) {
+		this.facing = newFacing;
+	}
+
+	public void setState(State newState) {
+		this.state = newState;
 	}
 
 	public void setLeftMove(boolean t) {
@@ -108,13 +113,5 @@ public class Player {
 		if (upMove && t)
 			upMove = false;
 		downMove = t;
-	}
-
-	public void setState(State newState) {
-		this.state = newState;
-	}
-
-	public void setFacing(Facing newFacing) {
-		this.facing = newFacing;
 	}
 }
