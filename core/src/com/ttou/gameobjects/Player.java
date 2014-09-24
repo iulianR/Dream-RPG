@@ -25,7 +25,7 @@ public class Player {
 
 	public static final int SIZE = 32;
 
-	public Player(int x, int y) {
+	public Player(float x, float y) {
 		this.position = new Vector2(x, y);
 		this.state = State.IDLE;
 		this.facing = Facing.DOWN;

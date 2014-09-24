@@ -4,6 +4,9 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
+import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 
 public class AssetLoader {
 
@@ -19,6 +22,10 @@ public class AssetLoader {
 	public static TextureRegion playerIdleUp;
 	public static TextureRegion playerIdleDown;
 	public static TextureRegion playerFrame;
+	
+	public static TiledMapRenderer tiledMapRenderer;
+	
+	public static TiledMap testMap;
 	
 	public static void load() {
 		playerAtlas = new TextureAtlas(Gdx.files.internal("data/player.txt"));
@@ -66,9 +73,13 @@ public class AssetLoader {
 				walkDownFrames[i] = playerAtlas.findRegion("player_down_" + (i + 1));
 		}
 		playerWalkDownAnimation = new Animation(0.066f, walkDownFrames);
+		
+		// Maps
+		testMap = new TmxMapLoader().load("data/testMap.tmx");
 	}
 
 	public static void dispose() {
 		playerAtlas.dispose();
+		testMap.dispose();
 	}
 }

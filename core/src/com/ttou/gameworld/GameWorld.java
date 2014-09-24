@@ -12,7 +12,7 @@ public class GameWorld {
 
 	public GameWorld() {
 		// New player at X, Y coordinates
-		player = new Player(30, 30);
+		player = new Player(170, 400);
 	}
 
 	public void update(float delta) {
